@@ -45,6 +45,11 @@ const Home = () => {
     <Container>
       <br />
       <Typography variant="h4">Currículos</Typography>
+      <Link to={"/register"}>
+        <Button variant="contained" color="success">
+          Cadastrar
+        </Button>
+      </Link>
       <br />
       <TableContainer component={Paper}>
         <Table sx={{ minWidth: 650 }} aria-label="simple table">
