@@ -14,6 +14,17 @@ export function MyStack({ stack }: StackContext) {
     primaryIndex: { partitionKey: "counter" },
   });
 
+  const resumeTable = new Table(stack, "resume-table", {
+    fields: {
+      name: "string",
+      phone: "string",
+      email: "string",
+      website: "string",
+      experience: "string",
+    },
+    primaryIndex: { partitionKey: "email" },
+  });
+
   // Create the HTTP API
   const api = new Api(stack, "Api", {
     defaults: {
@@ -29,8 +40,27 @@ export function MyStack({ stack }: StackContext) {
     },
   });
 
+  const resumeApi = new Api(stack, "resume-api", {
+    defaults: {
+      function: {
+        environment: {
+          tableName: resumeTable.tableName,
+        },
+      },
+    },
+    routes: {
+      "GET /resumes": "functions/list.handler",
+      "POST /resumes": "functions/create.handler",
+      "GET /resumes/{email}": "functions/get.handler",
+      "PUT /resumes/{email}": "functions/update.handler",
+      "DELETE /resumes/{email}": "functions/delete.handler",
+    },
+  });
+
   // Allow the API to access the table
   api.attachPermissions([table]);
+
+  resumeApi.attachPermissions([resumeTable]);
 
   // Deploy our React app
   const site = new ReactStaticSite(stack, "ReactSite", {
@@ -44,5 +74,6 @@ export function MyStack({ stack }: StackContext) {
   stack.addOutputs({
     SiteUrl: site.url,
     ApiEndpoint: api.url,
+    ResumeApiEndpoint: resumeApi.url,
   });
 }
