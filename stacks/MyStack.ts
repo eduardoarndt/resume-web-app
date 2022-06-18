@@ -67,6 +67,7 @@ export function MyStack({ stack }: StackContext) {
     path: "frontend",
     environment: {
       REACT_APP_API_URL: api.url,
+      REACT_APP_RESUME_API_URL: resumeApi.url,
     },
   });
 
