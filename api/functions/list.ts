@@ -5,12 +5,10 @@ const dynamoDb = new AWS.DynamoDB.DocumentClient();
 export async function handler() {
   const params = {
     TableName: process.env.tableName,
-    KeyConditionExpression: "email = :email",
-    ExpressionAttributeValues: {
-      ":email": "eduardo@gmail.com",
-    },
+    AttributesToGet: ["name", "email"],
   };
-  const results = await dynamoDb.query(params).promise();
+
+  const results = await dynamoDb.scan(params).promise();
 
   return {
     statusCode: 200,
