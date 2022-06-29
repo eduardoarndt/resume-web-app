@@ -1,21 +1,5 @@
-import {
-  Button,
-  Container,
-  Divider,
-  Grid,
-  IconButton,
-  Paper,
-  Stack,
-  Table,
-  TableBody,
-  TableCell,
-  TableContainer,
-  TableHead,
-  TableRow,
-  TextField,
-  Typography,
-} from "@mui/material";
-import { useEffect, useState } from "react";
+import { Button, Container, Stack, TextField, Typography } from "@mui/material";
+import { useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 
 const Register = () => {
@@ -48,6 +32,11 @@ const Register = () => {
       if (responseStatus == 200) {
         alert("Cadastro realizado!");
         return redirectNow();
+      }
+
+      if (responseStatus == 400) {
+        alert("Campo(s) obrigatório(s) não preenchidos!");
+        return;
       }
 
       alert("Erro: " + JSON.stringify(responseBody));

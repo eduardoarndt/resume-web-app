@@ -7,7 +7,11 @@ import { APIGatewayProxyHandlerV2 } from "aws-lambda";
 export const handler: APIGatewayProxyHandlerV2 = async (event) => {
   const data = JSON.parse(event.body);
 
-  //TODO: required fields validations
+  if (isEmpty(data.name) || isEmpty(data.email) || isEmpty(data.experience)) {
+    return {
+      statusCode: 400,
+    };
+  }
 
   const params = {
     TableName: process.env.tableName,
@@ -28,3 +32,7 @@ export const handler: APIGatewayProxyHandlerV2 = async (event) => {
     body: JSON.stringify(params.Item),
   };
 };
+
+function isEmpty(str: string) {
+  return !str || str.length === 0;
+}
