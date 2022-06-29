@@ -27,7 +27,6 @@ const Register = () => {
       );
 
       const responseStatus = response.status;
-      const responseBody = await response.json();
 
       if (responseStatus == 200) {
         alert("Cadastro realizado!");
@@ -39,9 +38,10 @@ const Register = () => {
         return;
       }
 
+      const responseBody = await response.json();
       alert("Erro: " + JSON.stringify(responseBody));
     } catch (error) {
-      alert(error);
+      alert("Erro: " + error);
     }
   };
 
