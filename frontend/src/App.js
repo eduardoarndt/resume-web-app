@@ -10,7 +10,7 @@ export default function App() {
       <Routes>
         <Route exact path="/" element={<Home />} />
         <Route exact path="/register" element={<Register />} />
-        <Route exact path="/view" element={<View />} />
+        <Route exact path="/view/:email" element={<View />} />
       </Routes>
     </BrowserRouter>
   );
