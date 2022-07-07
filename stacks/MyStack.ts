@@ -18,6 +18,7 @@ export function MyStack({ stack }: StackContext) {
   });
 
   const resumeApi = new Api(stack, "resume-api", {
+    cors: true,
     defaults: {
       function: {
         environment: {
