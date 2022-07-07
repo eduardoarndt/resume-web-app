@@ -13,9 +13,5 @@ export async function handler() {
   return {
     statusCode: 200,
     body: JSON.stringify(results.Items),
-    headers: {
-      "Access-Control-Allow-Origin": "*",
-      "Access-Control-Allow-Credentials": true,
-    },
   };
 }
